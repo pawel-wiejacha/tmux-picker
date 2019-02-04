@@ -1,6 +1,8 @@
 # tmux-picker
 
-tmux-picker: Selecting and copy-pasting in terminal using Vimium-like hint mode for tmux.
+**tmux-picker**: Selecting and copy-pasting in terminal using Vimium-like hint mode for tmux.
+
+![screencast](https://i.imgur.com/sz0176k.gif)
 
 This is a slimmed-down, improved and extended fork of [tmux-fingers](https://github.com/Morantron/tmux-fingers). Check [Acknowledgements](#acknowledgements) for comparison.
 
