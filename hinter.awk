@@ -43,10 +43,11 @@ BEGIN {
     line = $0;
     output_line = "";
     post_match = line;
+    skipped_prefix = "";
 
     # Inserts hints into `output_line` and accumulate hints in `hint_lookup`
     while (match(line, highlight_patterns, matches)) {
-        pre_match = substr(line, 1, RSTART - 1);
+        pre_match = skipped_prefix substr(line, 1, RSTART - 1);
         post_match = substr(line, RSTART + RLENGTH);
         line_match = matches[0]
 
@@ -59,7 +60,7 @@ BEGIN {
             #    |prefix_a item_a|prefix_a|item_a||||
             # Unfortunately, we don't know the index of first matching group.
             num_groups = length(matches) / 3; # array contains: idx, idx-start, idx-length for each group
-            for (i=1; i <= num_groups; i++) {
+            for (i = 1; i <= num_groups; i++) {
                 if (matches[i] != "") {
                     line_match = substr(line_match, 1 + matches[++i, "length"])
                     pre_match = pre_match matches[i]
@@ -84,12 +85,16 @@ BEGIN {
                 num_colors = split(pre_match, arr, /\x1b\[[0-9;]{1,9}m/, colors); 
                 post_match = join(colors, 1, 1 + num_colors, SUBSEP) post_match;
             }
+
+            output_line = output_line pre_match line_match;
+            skipped_prefix = "";
+        } else {
+            skipped_prefix = pre_match line_match; # we need it only to fix colors
         }
-        output_line = output_line pre_match line_match;
         line = post_match;
     }
 
-    printf "\n%s%s", output_line, post_match
+    printf "\n%s", (output_line skipped_prefix post_match)
 }
 
 END {
