@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [[ $1 == '--debug' ]]; then
+  echo "$*" | gawk -f $CURRENT_DIR/tmux-printer.awk
+else
+  eval "echo -e \"$(echo "$*" | gawk -f $CURRENT_DIR/tmux-printer.awk)\""
+fi
