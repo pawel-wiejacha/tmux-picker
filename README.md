@@ -41,7 +41,7 @@ You can press:
     - `PICKER_COPY_COMMAND_UPPERCASE` - command to execute on highlighted item, when hint was typed using uppercase letters
         - default is `bash -c 'arg=\$(cat -); tmux split-window -h -c \"#{pane_current_path}\" vim \"\$arg\"'`, which executes `vim` in a sidebar
     - `PICKER_HINT_FORMAT` - describes hint color/style.
-        - Default is `#[fg=color0,bg=color202,dim,bold]%s`, but you can change it to `bg=yellow` or something if your terminal does not support 256 colors
+        - Default is `#[fg=black,bg=red,bold]`, but `#[fg=color0,bg=color202,dim,bold]%s` is IMO better if your terminal supports 256 colors
     - `PICKER_HIGHLIGHT_FORMAT` - describes highlighted item color/style
 
 # Requirements
@@ -49,6 +49,11 @@ You can press:
 * tmux 2.2+
 * bash 4+
 * gawk 4.1+ (which was released in 2013)
+
+# Troubleshooting
+
+- <kbd>Meta</kbd> + <kbd>F</kbd> does not work in copy mode
+    - Set `set-option -g mode-keys vi`, adjust your key bindings or change `PICKER_KEY`
 
 # Acknowledgements
 
