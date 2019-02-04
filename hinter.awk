@@ -5,7 +5,7 @@ BEGIN {
 
     highlight_patterns = ENVIRON["PICKER_PATTERNS"]
     num_hints_needed = ENVIRON["NUM_HINTS_NEEDED"]
-    blacklist = "(^\x1b\\[[0-9]{1,5}m|^|[[:space:]])"ENVIRON["PICKER_BLACKLIST_PATTERNS"]"$"
+    blacklist = "(^\x1b\\[[0-9;]{1,9}m|^|[[:space:]:<>)(&#'\"])"ENVIRON["PICKER_BLACKLIST_PATTERNS"]"$"
 
     hint_format = ENVIRON["PICKER_HINT_FORMAT"]
     hint_format_nocolor = ENVIRON["PICKER_HINT_FORMAT_NOCOLOR"]

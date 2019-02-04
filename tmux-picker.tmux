@@ -48,7 +48,7 @@ function array_join() {
 
 CS=$'\x1b'"\[[0-9;]{1,9}m" # color escape sequence
 FILE_CHARS="[[:alnum:]_.#$%&+=/@~-]"
-FILE_START_CHARS="[[:space:]:<>)(&#]"
+FILE_START_CHARS="[[:space:]:<>)(&#'\"]"
 
 # default patterns group
 PATTERNS_LIST1=(
