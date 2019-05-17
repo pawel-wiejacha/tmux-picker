@@ -59,6 +59,7 @@ PATTERNS_LIST1=(
 "(()(https?://|git@|git://|ssh://|ftp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&)(*+-]*)" # URLs
 "(()[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})" # IP adresses
 "(()0x[0-9a-fA-F]+)" # hex numbers
+"(()([a-fA-F0-9]{2}:?){6,})" # MAC-adresses or alike"
 )
 
 # alternative patterns group (shown after pressing the SPACE key)
