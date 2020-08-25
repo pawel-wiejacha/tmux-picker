@@ -52,13 +52,14 @@ FILE_START_CHARS="[[:space:]:<>)(&#'\"]"
 
 # default patterns group
 PATTERNS_LIST1=(
-"(($CS|^|$FILE_START_CHARS)$FILE_CHARS*/$FILE_CHARS+)" # file paths with /
-"(()[0-9]+\.[0-9]{3,}|[0-9]{5,})" # long numbers
-"(()[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})" # UUIDs
-"(()[0-9a-f]{7,40})" # hex numbers (e.g. git hashes)
-"(()(https?://|git@|git://|ssh://|ftp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&)(*+-]*)" # URLs
-"(()[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})" # IP adresses
-"(()0x[0-9a-fA-F]+)" # hex numbers
+  "(()^([A-Za-z0-9]+-){2,}[A-Za-z0-9]+)" # (some) kubernetes object ids
+  "(($CS|^|$FILE_START_CHARS)$FILE_CHARS*/$FILE_CHARS+)" # file paths with /
+  "(()[0-9]+\.[0-9]{3,}|[0-9]{5,})" # long numbers
+  "(()[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})" # UUIDs
+  "(()[0-9a-f]{7,40})" # hex numbers (e.g. git hashes)
+  "(()(https?://|git@|git://|ssh://|ftp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&)(*+-]*)" # URLs
+  "(()[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})" # IP adresses
+  "(()0x[0-9a-fA-F]+)" # hex numbers
 )
 
 # alternative patterns group (shown after pressing the SPACE key)
