@@ -11,7 +11,10 @@ function set_tmux_env() {
     local option_name="$1"
     local final_value="$2"
 
-    tmux setenv -g "$option_name" "$final_value"
+    if [[ -z "${!option_name}" ]]
+    then
+      tmux setenv -g "$option_name" "$final_value"
+    fi
 }
 
 function process_format () {
@@ -75,7 +78,7 @@ BLACKLIST=(
 
 # "-n M-f" for Alt-F without prefix
 # "f" for prefix-F
-PICKER_KEY="-n M-f" 
+set_tmux_env PICKER_KEY "-n M-f" 
 
 set_tmux_env PICKER_PATTERNS1 $(array_join "|" "${PATTERNS_LIST1[@]}")
 set_tmux_env PICKER_PATTERNS2 $(array_join "|" "${PATTERNS_LIST2[@]}")
