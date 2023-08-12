@@ -22,6 +22,15 @@ function array_join() {
     local IFS="$1"; shift; echo "$*";
 }
 
+# $1: option
+# $2: default value
+# Source: https://github.com/wfxr/tmux-fzf-url/blob/b8436ddcab9bc42cd110e0d0493a21fe6ed1537e/fzf-url.tmux#L11
+tmux_get() {
+  local value
+  value="$(tmux show -gqv "$1")"
+  [ -n "$value" ] && echo "$value" || echo "$2"
+}
+
 #
 # CONFIG
 #
@@ -75,7 +84,7 @@ BLACKLIST=(
 
 # "-n M-f" for Alt-F without prefix
 # "f" for prefix-F
-PICKER_KEY="-n M-f" 
+PICKER_KEY="$(tmux_get '@picker-key' '-n M-f')"
 
 set_tmux_env PICKER_PATTERNS1 $(array_join "|" "${PATTERNS_LIST1[@]}")
 set_tmux_env PICKER_PATTERNS2 $(array_join "|" "${PATTERNS_LIST2[@]}")
@@ -84,12 +93,14 @@ set_tmux_env PICKER_BLACKLIST_PATTERNS $(array_join "|" "${BLACKLIST[@]}")
 set_tmux_env PICKER_COPY_COMMAND "xclip -f -in -sel primary | xclip -in -sel clipboard"
 set_tmux_env PICKER_COPY_COMMAND_UPPERCASE "bash -c 'arg=\$(cat -); tmux split-window -h -c \"#{pane_current_path}\" vim \"\$arg\"'"
 
+PICKER_HINT_STRING="$(tmux_get '@picker_hint' 'fg=black,bg=red,bold')"
 #set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=color0,bg=color202,dim,bold]%s")
-set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=black,bg=red,bold]%s")
+set_tmux_env PICKER_HINT_FORMAT $(process_format "#[""${PICKER_HINT_STRING}""]%s")
 set_tmux_env PICKER_HINT_FORMAT_NOCOLOR "%s"
 
+PICKER_HIGHLIGHT_STRING="$(tmux_get '@picker_highlight' 'fg=black,bg=yellow,bold')"
 #set_tmux_env PICKER_HIGHLIGHT_FORMAT $(process_format "#[fg=black,bg=color227,normal]%s")
-set_tmux_env PICKER_HIGHLIGHT_FORMAT $(process_format "#[fg=black,bg=yellow,bold]%s")
+set_tmux_env PICKER_HIGHLIGHT_FORMAT $(process_format "#[""${PICKER_HIGHLIGHT_STRING}""]%s")
 
 #
 # BIND
